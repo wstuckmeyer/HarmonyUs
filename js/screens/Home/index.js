@@ -15,53 +15,24 @@ import {
   Icon,
   Card,
   CardItem,
-  H3
+  H3,
 } from "native-base";
+import {TabNavigator, StackNavigator} from 'react-navigation';
+import Expenses from './expenses';
+import Shopping from './shopping';
+import Tasks from './tasks';
 
 import styles from "./styles";
 
-export default class Home extends Component {
-  render() {
-    return (
-      <Container>
-        <Header>
-          <Left>
-            <Button
-              transparent
-              onPress={() => this.props.navigation.navigate("DrawerOpen")}
-            >
-              <Icon name="menu" />
-            </Button>
-          </Left>
-          <Body>
-            <Title>Welcome!</Title>
-          </Body>
-          <Right>
-            <Button transparent onPress={() => alert("We love you too!")}>
-              <Icon name="heart" />
-            </Button>
-          </Right>
-        </Header>
-        <Content padder>
-          <Card>
-            <CardItem>
-              <Body>
-                <H3 style={styles.h3}>Hey there!</H3>
-                <Text style={styles.text}>
-                  This is the NativeBase boilerplate. We've added a few example
-                  screens to help you get started. Click on the menu button to
-                  check them out. This kit comes with react-navigation as well,
-                  we've got you covered!
-                </Text>
-              </Body>
-            </CardItem>
-          </Card>
-          <Image
-            source={require("./../../../assets/fireworks.gif")}
-            style={styles.image}
-          />
-        </Content>
-      </Container>
-    );
-  }
+var MainScreenNavigator = TabNavigator({
+  Tab1: {screen:Tasks},
+  Tab2: {screen:Expenses}
+})
+
+MainScreenNavigator.navigationOptions = {
+  title: 'Main Tabs',
+  animationsEnabled: true,
+  activeTintColor:'#ff1683'
 }
+
+export default MainScreenNavigator;
