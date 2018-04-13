@@ -1,33 +1,18 @@
 const styles = {
-  background: {
-    resizeMode: 'cover',
-    flex: 1,
-    width: null,
-    alignItems: 'center',
-    //justifyContent: 'center',
+  container: {
+    backgroundColor: "#fff"
   },
-  back: {
-    backgroundColor: 'rgba(0,0,0,0)',
-    justifyContent: 'flex-start'
+  logo: {
+    alignSelf: "center"
   },
-  icon: {
-    fontSize: 40
+  form: {
+    paddingRight: 45,
+    paddingLeft: 35,
+    top: -20
   },
-  h3:{
-    backgroundColor: 'rgba(0,0,0,0)',
-    color:'white',
-    fontFamily: 'futura',
-    fontSize: 40,
-    marginTop: 70,
-    lineHeight: null
-  },
-  button:{
-    width: 300,
-    marginTop: 20,
-    backgroundColor: '#FF4081'
-  },
-  formtxt:{
-    color:'white'
+  button: {
+    marginTop: 25,
+    marginLeft: 15
   }
 };
 

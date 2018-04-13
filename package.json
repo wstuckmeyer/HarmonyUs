@@ -7,27 +7,10 @@
     "test": "jest"
   },
   "dependencies": {
-    "firebase": "^4.3.1",
     "native-base": "2.2.0",
     "react": "16.0.0-alpha.12",
     "react-native": "0.45.1",
-    "react-native-animatable": "^1.2.3",
-    "react-native-animated-linear-gradient": "^1.0.2",
-    "react-native-animated-modal": "^1.1.0",
-    "react-native-charts-wrapper": "^0.2.10",
-    "react-native-facebook-login": "^1.6.0",
-    "react-native-firebase-auth": "^1.0.1",
-    "react-native-google-sign-in": "0.0.16",
-    "react-native-linear-gradient": "^2.3.0",
-    "react-native-modalbox": "^1.4.2",
-    "react-native-simple-picker": "^1.4.3",
-    "react-native-smart-picker": "^1.0.2",
-    "react-native-swipeout": "^2.2.2",
-    "react-native-tab-navigator": "^0.3.4",
-    "react-navigation": "^1.0.0-beta.11",
-    "realm": "^1.12.0",
-    "simple-firebase-auth": "0.0.8",
-    "uuid": "^3.1.0"
+    "react-navigation": "^1.0.0-beta.11"
   },
   "devDependencies": {
     "babel-jest": "20.0.3",

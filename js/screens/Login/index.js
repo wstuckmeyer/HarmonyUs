@@ -10,77 +10,121 @@ import {
   Input,
   Button,
   Toast,
-  Content,
-  Icon,
-  H3
+  Content
 } from "native-base";
 
 import styles from "./styles";
-import firebase from 'firebase';
-import firebaseApp from '../../components/db.js'
+
 export default class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: undefined,
+      username: undefined,
       password: undefined
     };
-    
+    this.height = new Animated.Value(220);
+    this.width = new Animated.Value(220);
+    this.top = new Animated.Value(30);
   }
-  
-  async login() { 
-    const ref = firebase.database().ref()
-    try {
-      await firebase.auth()
-            .signInWithEmailAndPassword(this.state.email, this.state.password);
-            this.props.navigation.navigate('Drawer')
-          } catch (error) {
-            Toast.show({
-              text:'Incorrect Username/password',
-              type: 'danger',
-              duration: 2500
-            })
-          }
-          
-      } 
-  
-  render() {
-    const {navigate} = this.props.navigation;
-    return (
+  componentWillMount() {
+    this.keyboardDidShowListener = Keyboard.addListener(
+      "keyboardDidShow",
+      this._keyboardDidShow
+    );
+    this.keyboardDidHideListener = Keyboard.addListener(
+      "keyboardDidHide",
+      this._keyboardDidHide
+    );
+  }
 
-      <Image
-       source={require('../../../assets/Signup2.png')}
-       style={styles.background}>
-       <Button onPress={()=>this.props.navigation.goBack()}
-       style={styles.back}>
-        <Icon style={styles.icon} name="arrow-back"/>
-      </Button>
-        <H3 style={styles.h3}>Log In </H3>
-        <Form>
-          <Item underline>
+  componentWillUnmount() {
+    this.keyboardDidShowListener.remove();
+    this.keyboardDidHideListener.remove();
+  }
+
+  _keyboardDidShow = () => {
+    Animated.parallel([
+      Animated.timing(this.height, {
+        toValue: 140,
+        duration: 300
+      }),
+      Animated.timing(this.width, {
+        toValue: 140,
+        duration: 300
+      }),
+      Animated.timing(this.top, {
+        toValue: Platform.OS === "ios" ? 90 : 0,
+        duration: 300
+      })
+    ]).start();
+  };
+
+  _keyboardDidHide = () => {
+    Animated.parallel([
+      Animated.timing(this.height, {
+        toValue: 220,
+        duration: 300
+      }),
+      Animated.timing(this.width, {
+        toValue: 220,
+        duration: 300
+      }),
+      Animated.timing(this.top, {
+        toValue: 30,
+        duration: 300
+      })
+    ]).start();
+  };
+  login() {
+    if (!this.state.username || !this.state.password) {
+      Toast.show({
+        text: "Username/password cannot be empty!",
+        type: "danger",
+        duration: 2500
+      });
+    } else this.props.navigation.navigate("Drawer");
+  }
+  render() {
+    return (
+      <Container style={styles.container}>
+        <Content
+          bounces={false}
+          contentContainerStyle={{
+            flex: 1,
+            justifyContent: "space-around"
+          }}
+        >
+          <Animated.Image
+            source={require("./../../../assets/react.png")}
+            style={[
+              styles.logo,
+              {
+                height: this.height,
+                width: this.width,
+                top: this.top
+              }
+            ]}
+          />
+          <Form style={styles.form}>
+            <Item underline>
               <Input
-              style={styles.formtxt}
-                onChangeText={email => this.setState({ email })}
-                placeholder="Email"
-                placeholderTextColor='white'
+                onChangeText={username => this.setState({ username })}
+                placeholder="Username"
               />
             </Item>
             <Item underline>
               <Input
-                style={styles.formtxt}
                 secureTextEntry
                 onChangeText={password => this.setState({ password })}
                 placeholder="Password"
-                placeholderTextColor='white'
               />
             </Item>
-           <Button full 
-           style={styles.button} 
-           onPress={() => this.login()}>
-                <Text style={styles.txt}>Log In</Text>
-            </Button> 
-        </Form>
-       </Image>
+            <Button full style={styles.button} onPress={() => this.login()}>
+              <Text>Login</Text>
+            </Button>
+          </Form>
+        </Content>
+      </Container>
     );
   }
 }
